@@ -8,9 +8,14 @@
 </head>
 <body>
   <div class="container fade-in">
-    <h1>Guess the Number (1-1000)</h1>
-    <input type="number" id="guessInput" placeholder="Enter your guess" min="1" max="1000">
-    <button onclick="checkGuess()">Guess</button>
+    <h1>Guess the Number</h1>
+    <p class="subtitle">Pick a number between 1 and 1000</p>
+
+    <div class="input-group">
+      <input type="number" id="guessInput" placeholder="Your guess" min="1" max="1000">
+      <button onclick="checkGuess()">Guess</button>
+    </div>
+
     <p id="feedback"></p>
     <p id="attempts">Attempts: 0</p>
     <button id="resetButton" onclick="resetGame()">Reset Game</button>
@@ -40,17 +45,17 @@
       animateAttempts(attemptsDisplay, attempts);
 
       if (guess < 1 || guess > 1000) {
-        feedback.textContent = "Number must be between 1 and 1000!";
-        feedback.style.color = "red";
+        feedback.textContent = "⚠ Number must be 1–1000!";
+        feedback.style.color = "#ff4c4c";
       } else if (guess < randomNumber) {
-        feedback.textContent = "⬆ Higher!";
-        feedback.style.color = "#00BFFF";
+        feedback.textContent = "⬆ Try Higher!";
+        feedback.style.color = "#00bfff";
       } else if (guess > randomNumber) {
-        feedback.textContent = "⬇ Lower!";
-        feedback.style.color = "#00BFFF";
+        feedback.textContent = "⬇ Try Lower!";
+        feedback.style.color = "#00bfff";
       } else {
         feedback.textContent = `🎉 Correct! The number was ${randomNumber}.`;
-        feedback.style.color = "limegreen";
+        feedback.style.color = "#00ffea";
         resetBtn.style.display = 'inline-block';
         startConfetti();
       }
@@ -86,7 +91,7 @@
           y: Math.random() * confettiCanvas.height - confettiCanvas.height,
           r: Math.random() * 6 + 4,
           d: Math.random() * 30,
-          color: `hsl(${Math.random()*360}, 100%, 50%)`,
+          color: `hsl(${Math.random()*220 + 180}, 100%, 50%)`, // Blueish confetti
           tilt: Math.random() * 10 - 10,
           tiltAngleIncremental: Math.random() * 0.07 + 0.05,
           tiltAngle: 0
