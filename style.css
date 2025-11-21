@@ -1,24 +1,24 @@
-/* General body styles */
+/* Body */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #667eea, #764ba2);
   margin: 0;
+  background: #0a0a0a;
   color: #fff;
   overflow: hidden;
 }
 
-/* Container with shadow and rounded edges */
+/* Container */
 .container {
+  background: #121212;
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  width: 350px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 50px 30px;
-  border-radius: 25px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  width: 320px;
   transition: all 0.3s ease;
 }
 
@@ -32,58 +32,98 @@ body {
   to { opacity: 1; transform: translateY(0);}
 }
 
+/* Titles */
 h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #00bfff;
+}
+
+.subtitle {
+  font-size: 0.95em;
   margin-bottom: 25px;
-  font-size: 1.8em;
-  letter-spacing: 1px;
+  color: #aaa;
+}
+
+/* Input group */
+.input-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 input {
-  padding: 12px;
-  width: 80%;
-  border-radius: 15px;
+  padding: 12px 15px;
+  border-radius: 12px;
   border: none;
-  margin-bottom: 20px;
   font-size: 16px;
-  transition: transform 0.2s ease;
+  width: 140px;
+  transition: all 0.2s ease;
+  background: #1e1e1e;
+  color: #fff;
 }
 
 input:focus {
   outline: none;
+  box-shadow: 0 0 8px #00bfff;
   transform: scale(1.05);
-  box-shadow: 0 0 10px #00BFFF;
 }
 
 button {
   padding: 12px 25px;
-  border-radius: 15px;
+  border-radius: 12px;
   border: none;
-  background: #4CAF50;
-  color: white;
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 10px;
 }
 
 button:hover {
-  background: #45a049;
   transform: translateY(-2px);
 }
 
-p {
-  margin-top: 15px;
-  font-size: 16px;
-  min-height: 20px;
+button:active {
+  transform: translateY(0px);
 }
 
+.start-btn {
+  background: #00bfff;
+  color: #000;
+  font-weight: bold;
+}
+
+.start-btn:hover {
+  background: #0099cc;
+}
+
+.input-group button {
+  background: #00bfff;
+  color: #000;
+  font-weight: bold;
+}
+
+.input-group button:hover {
+  background: #0099cc;
+}
+
+/* Feedback & Attempts */
+p {
+  font-size: 16px;
+  min-height: 20px;
+  margin-top: 10px;
+}
+
+/* Reset button */
 #resetButton {
-  background: #f44336;
-  margin-top: 20px;
+  background: #ff4c4c;
+  color: #fff;
+  margin-top: 15px;
+  display: none;
 }
 
 #resetButton:hover {
-  background: #e53935;
+  background: #e63939;
 }
 
 /* Confetti canvas */
