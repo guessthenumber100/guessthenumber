@@ -1,0 +1,96 @@
+/* General body styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  margin: 0;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Container with shadow and rounded edges */
+.container {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 50px 30px;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  width: 320px;
+  transition: all 0.3s ease;
+}
+
+/* Fade-in animation */
+.fade-in {
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+h1 {
+  margin-bottom: 25px;
+  font-size: 1.8em;
+  letter-spacing: 1px;
+}
+
+input {
+  padding: 12px;
+  width: 80%;
+  border-radius: 15px;
+  border: none;
+  margin-bottom: 20px;
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #00BFFF;
+}
+
+button {
+  padding: 12px 25px;
+  border-radius: 15px;
+  border: none;
+  background: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+}
+
+p {
+  margin-top: 15px;
+  font-size: 16px;
+  min-height: 20px;
+}
+
+#resetButton {
+  background: #f44336;
+  margin-top: 20px;
+}
+
+#resetButton:hover {
+  background: #e53935;
+}
+
+/* Confetti canvas */
+#confettiCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
