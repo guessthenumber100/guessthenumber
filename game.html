@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Guessing Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container fade-in">
+    <h1>Guess the Number (1-1000)</h1>
+    <input type="number" id="guessInput" placeholder="Enter your guess" min="1" max="1000">
+    <button onclick="checkGuess()">Guess</button>
+    <p id="feedback"></p>
+    <p id="attempts">Attempts: 0</p>
+    <button id="resetButton" onclick="resetGame()">Reset Game</button>
+  </div>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <script>
+    let randomNumber = Math.floor(Math.random() * 1000) + 1;
+    let attempts = 0;
+
+    const feedback = document.getElementById('feedback');
+    const attemptsDisplay = document.getElementById('attempts');
+    const resetBtn = document.getElementById('resetButton');
+    const guessInput = document.getElementById('guessInput');
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const ctx = confettiCanvas.getContext('2d');
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
+    resetBtn.style.display = 'none';
+
+    let confettiParticles = [];
+
+    function checkGuess() {
+      const guess = Number(guessInput.value);
+      attempts++;
+      animateAttempts(attemptsDisplay, attempts);
+
+      if (guess < 1 || guess > 1000) {
+        feedback.textContent = "Number must be between 1 and 1000!";
+        feedback.style.color = "red";
+      } else if (guess < randomNumber) {
+        feedback.textContent = "⬆ Higher!";
+        feedback.style.color = "#00BFFF";
+      } else if (guess > randomNumber) {
+        feedback.textContent = "⬇ Lower!";
+        feedback.style.color = "#00BFFF";
+      } else {
+        feedback.textContent = `🎉 Correct! The number was ${randomNumber}.`;
+        feedback.style.color = "limegreen";
+        resetBtn.style.display = 'inline-block';
+        startConfetti();
+      }
+    }
+
+    function resetGame() {
+      randomNumber = Math.floor(Math.random() * 1000) + 1;
+      attempts = 0;
+      feedback.textContent = '';
+      animateAttempts(attemptsDisplay, attempts);
+      guessInput.value = '';
+      resetBtn.style.display = 'none';
+      confettiParticles = [];
+      ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+    }
+
+    function animateAttempts(element, target) {
+      let current = parseInt(element.getAttribute('data-current') || 0);
+      let step = target > current ? 1 : -1;
+      const interval = setInterval(() => {
+        current += step;
+        element.textContent = `Attempts: ${current}`;
+        element.setAttribute('data-current', current);
+        if (current === target) clearInterval(interval);
+      }, 50);
+    }
+
+    function startConfetti() {
+      confettiParticles = [];
+      for (let i = 0; i < 150; i++) {
+        confettiParticles.push({
+          x: Math.random() * confettiCanvas.width,
+          y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 30,
+          color: `hsl(${Math.random()*360}, 100%, 50%)`,
+          tilt: Math.random() * 10 - 10,
+          tiltAngleIncremental: Math.random() * 0.07 + 0.05,
+          tiltAngle: 0
+        });
+      }
+      requestAnimationFrame(drawConfetti);
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      for (let i = 0; i < confettiParticles.length; i++) {
+        let p = confettiParticles[i];
+        ctx.beginPath();
+        ctx.lineWidth = p.r / 2;
+        ctx.strokeStyle = p.color;
+        ctx.moveTo(p.x + p.tilt + p.r / 4, p.y);
+        ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 4);
+        ctx.stroke();
+        p.tiltAngle += p.tiltAngleIncremental;
+        p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+        p.tilt = Math.sin(p.tiltAngle) * 12;
+        if (p.y > confettiCanvas.height) {
+          p.y = -10;
+          p.x = Math.random() * confettiCanvas.width;
+        }
+      }
+      requestAnimationFrame(drawConfetti);
+    }
+
+    window.addEventListener('resize', () => {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
